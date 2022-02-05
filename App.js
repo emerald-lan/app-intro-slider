@@ -1,13 +1,38 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, PixelRatio, Dimensions, SafeAreaView, ScrollView } from 'react-native';
-import AppLoading from 'expo-app-loading';
-import { AntDesign } from '@expo/vector-icons';
+import {View, Text, Image, StyleSheet, StatusBar, Dimensions, } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 
 import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto';
+import AppLoading from 'expo-app-loading';
 
-export default function App() {
+import { AntDesign } from '@expo/vector-icons';
+
+const data = [
+  {
+    text: 'Receiving guidelines\nfrom psychologists',
+    image: require('./assets/img/1/Saly-22.png'),
+    bgimage: require('./assets/img/1/image3.png'),
+  },
+  {
+    text: 'Noting down your\nemotion diary',
+    image: require('./assets/img/2/Saly-1.png'),
+    bgimage: require('./assets/img/2/image19.png'),
+  },
+  {
+    text: 'Exploring posts and events about mental health',
+    image: require('./assets/img/3/Saly-34.png'),
+    bgimage: require('./assets/img/3/image17.png'),
+  },
+  {
+    text: 'Chatting with strangers\n',
+    image: require('./assets/img/4/Saly-14.png'),
+    bgimage: require('./assets/img/4/image3.png'),
+  },
+];
+
+const { width, height } = Dimensions.get('window');
+
+const App = () => {
   let [fontsLoaded, error] = useFonts({
     Regular: Roboto_400Regular,
     Medium: Roboto_500Medium,
@@ -17,95 +42,137 @@ export default function App() {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+  const keyExtractor = (item) => item.title;
 
-  const { width, height } = Dimensions.get('window');
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#EBF3FA' }}>
-        <ScrollView
-          style={{ flex: 1 }}
-          horizontal={true}
-          scrollEventThrottle={16}
-          pagingEnabled={true}
-        >
-
-        <View style={{ width, height }}>
-          <Image source={require('./assets/img/1/image3.png')} style={{ position: 'absolute', bottom: 0.48*height, left: 0 }} />
-          <Image source={require('./assets/img/1/Saly-22.png')} style={{ position: 'absolute', bottom: 0.325*height, alignSelf: 'center' }} />
-          
-          <View style={styles.wrapper}>
-            <Text style={styles.text}>Receiving guidelines {"\n"}from psychologists</Text>
-          </View>
+  const renderItem = ({item, index}) => {
+    if (index == 0) {
+      return (
+        <View style={styles.slide}>
+          <Image source={item.bgimage} style={{position: 'absolute', bottom: 0.48*height, left: 0}} />
+          <Image source={item.image} style={{position: 'absolute', bottom: 0.325*height, alignSelf: 'center'}} />
+        <View style={styles.textbox}>
+          <Text style={styles.text}>{item.text}</Text>
         </View>
-              
-        <View style={{ width, height }}>
-          <Image source={require('./assets/img/2/image19.png')} style={{ position: 'absolute', bottom: 0.338*height, left: 0 }} />
-          <Image source={require('./assets/img/2/Saly-1.png')} style={{ position: 'absolute', bottom: 0.24*height, alignSelf: 'center' }} />
-          
-          <View style={styles.wrapper}>
-            <Text style={styles.text}>Noting down your{"\n"} emotion diary</Text>
-          </View>
-        </View>
-
-        <View style={{ width, height }}>
-          <Image source={require('./assets/img/3/image17.png')} style={{ position: 'absolute', top: 0, right: 0 }} />
-          <Image source={require('./assets/img/3/Saly-34.png')} style={{ position: 'absolute', bottom: 0.289*height, alignSelf: 'center' }} />
-          
-          <View style={styles.wrapper}>
-            <Text style={styles.text}>Exploring posts and events about mental health</Text>
-          </View>
-        </View>
-
-        <View style={{ width, height }}>
-          <Image source={require('./assets/img/4/image3.png')} style={{ position: 'absolute', bottom: 0.04*height, right: 0 }} />
-          <Image source={require('./assets/img/4/Saly-14.png')} style={{ position: 'absolute', bottom: 0.217*height, alignSelf: 'center' }} />
-          
-          <View style={styles.wrapper}>
-            <Text style={styles.text}>Chatting with strangers{"\n"}</Text>
-          </View>
-        </View>
-
-        </ScrollView>
-      </SafeAreaView>
-      </>
-    );
-  };
-  
-  const styles = StyleSheet.create({
-    wrapper: {
-      position: 'absolute',
-      justifyContent: 'center',
-      alignItems: 'center',
-      bottom: '12%',
-      left: 0,
-      right: 0,
-    },
-    text: {
-      fontFamily: 'Bold',
-      fontSize: 28,
-      color: '#193566',
-      textAlign: 'center',
-      bottom: '12.81%',
+      </View>
+      )
     }
-  });
+    else if (index == 1) {
+      return (
+        <View style={styles.slide}>
+          <Image source={item.bgimage} style={{position: 'absolute', bottom: 0.338*height, left: 0}} />
+          <Image source={item.image} style={{position: 'absolute', bottom: 0.24*height, alignSelf: 'center'}} />
+        <View style={styles.textbox}>
+          <Text style={styles.text}>{item.text}</Text>
+        </View>
+      </View>
+      )
+    }
+    else if (index == 2) {
+      return (
+        <View style={styles.slide}>
+          <Image source={item.bgimage} style={{position: 'absolute', top: 0, right: 0}} />
+          <Image source={item.image} style={{position: 'absolute', bottom: 0.289*height, alignSelf: 'center'}} />
+        <View style={styles.textbox}>
+          <Text style={styles.text}>{item.text}</Text>
+        </View>
+      </View>
+      )
+    }
+    else {
+      return (
+        <View style={styles.slide}>
+          <Image source={item.bgimage} style={{position: 'absolute', bottom: 0.04*height, right: 0}} />
+          <Image source={item.image} style={{position: 'absolute', bottom: 0.217*height, alignSelf: 'center'}} />
+        <View style={styles.textbox}>
+          <Text style={styles.text}>{item.text}</Text>
+        </View>
+      </View>
+      ) 
+    }
+  }
 
+  const renderDoneButton = () => {
+    return (
+      <View style={[styles.buttonWrapper, styles.elevation]}>
+        <Text style={styles.buttonText}>GO!</Text>
+      </View>
+    )
+  }
 
+  const renderNextButton = () => {
+    return (
+      <View>
+        <AntDesign name="arrowright" size={44} color="#728AB7"/>
+      </View>
+    )
+  }
 
+  const renderPrevButton = () => {
+    return (
+      <View>
+        <AntDesign name="arrowleft" size={44} color="#728AB7" />
+      </View>
+    )
+  }
+  
+  return (
+    <View style={{flex: 1}}>
+      <StatusBar translucent backgroundColor="transparent" />
+      <AppIntroSlider
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
+        renderDoneButton={renderDoneButton}
+        renderNextButton={renderNextButton}
+        renderPrevButton={renderPrevButton}
+        showPrevButton
+        activeDotStyle={styles.activeDotStyle}
+        data={data}
+      />
+    </View>
+  );
+};
 
-//   return (
-//     <View style={styles.container}>
-//       <Text style={{ fontFamily: "Bold", fontSize: 25, color: "red" }}>tram cam</Text>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
+const styles = StyleSheet.create({
+  slide: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#EBF3FA',
+  },
+  textbox: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    bottom: 0.128*height,
+    left: 0,
+    right: 0,
+  },
+  text: {
+    fontFamily: 'Bold',
+    fontSize: 28,
+    color: '#193566',
+    textAlign: 'center',
+  },
+  buttonWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 128,
+    height: 45,
+    borderRadius: 50,
+    backgroundColor: '#E9F0F7',
+  },
+  elevation: {
+    elevation: 5,
+    shadowColor: '#8a9bbc',
+  },
+  buttonText: {
+    fontFamily: 'Medium',
+    fontSize: 20,
+    color: '#728AB7',
+  },
+  activeDotStyle: {
+    backgroundColor: '#728AB7',
+  },
+});
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#EBF3FA',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
+export default App;
