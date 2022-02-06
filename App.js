@@ -1,36 +1,38 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, StatusBar, Dimensions, } from 'react-native';
+import {View, Text, Image, StyleSheet, StatusBar, Dimensions} from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
-
-import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto';
+import {useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold} from '@expo-google-fonts/roboto';
 import AppLoading from 'expo-app-loading';
-
-import { AntDesign } from '@expo/vector-icons';
+import {AntDesign} from '@expo/vector-icons';
 
 const data = [
   {
+    key: 1,
     text: 'Receiving guidelines\nfrom psychologists',
     image: require('./assets/img/1/Saly-22.png'),
     bgimage: require('./assets/img/1/image3.png'),
   },
   {
+    key: 2,
     text: 'Noting down your\nemotion diary',
     image: require('./assets/img/2/Saly-1.png'),
     bgimage: require('./assets/img/2/image19.png'),
   },
   {
+    key: 3,
     text: 'Exploring posts and events about mental health',
     image: require('./assets/img/3/Saly-34.png'),
     bgimage: require('./assets/img/3/image17.png'),
   },
   {
+    key: 4,
     text: 'Chatting with strangers\n',
     image: require('./assets/img/4/Saly-14.png'),
     bgimage: require('./assets/img/4/image3.png'),
   },
 ];
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 const App = () => {
   let [fontsLoaded, error] = useFonts({
@@ -42,7 +44,7 @@ const App = () => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-  const keyExtractor = (item) => item.title;
+  const keyExtractor = (item) => item.key;
 
   const renderItem = ({item, index}) => {
     if (index == 0) {
@@ -117,7 +119,7 @@ const App = () => {
   
   return (
     <View style={{flex: 1}}>
-      <StatusBar translucent backgroundColor="transparent" />
+      <StatusBar translucent backgroundColor="transparent" barStyle="dark-content"/>
       <AppIntroSlider
         keyExtractor={keyExtractor}
         renderItem={renderItem}
